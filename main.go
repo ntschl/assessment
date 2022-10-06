@@ -9,7 +9,7 @@ import (
 
 func main() {
 	r := gin.Default()
-	r.GET("/questions")                     // all questions
+	r.GET("/questions", getAllQuestions)    // all questions
 	r.GET("/question", getRandomQuestion)   // random question
 	r.GET("/question/:id", getQuestionByID) // specific Q
 	r.Run("0.0.0.0:8080")
@@ -48,4 +48,12 @@ func getQuestionByID(c *gin.Context) {
 	id := c.Param("id")
 	question := questionsMap[id]
 	c.JSON(http.StatusOK, question)
+}
+
+func getAllQuestions(c *gin.Context) {
+	var questions []question
+	for _, v := range questionsMap {
+		questions = append(questions, v)
+	}
+	c.JSON(http.StatusOK, questions)
 }
