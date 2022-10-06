@@ -55,5 +55,7 @@ func getAllQuestions(c *gin.Context) {
 	for _, v := range questionsMap {
 		questions = append(questions, v)
 	}
-	c.JSON(http.StatusOK, questions)
+	for i := 0; i < len(questions); i++ {
+		c.JSON(http.StatusOK, questions[i])
+	}
 }
