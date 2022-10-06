@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"math/rand"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	r := gin.Default()
@@ -21,4 +25,18 @@ var questionsMap = map[string]question{
 	"266ab3b0-cedf-4450-b11f-2ae81107636d": {"266ab3b0-cedf-4450-b11f-2ae81107636d", "Who is your biggest role model and why?"},
 	"b0e5e096-76cc-475f-b523-8820b4aa5c00": {"b0e5e096-76cc-475f-b523-8820b4aa5c00", "Where did you see yourself in 10 years when you were 16?"},
 	"b5266b38-1992-46a0-9bc9-defcd20ee7d5": {"b5266b38-1992-46a0-9bc9-defcd20ee7d5", "Why did you choose a career in tech?"},
+}
+
+// returns random key from map using slice
+func randomizer(m map[string]question) string {
+	var keys []string
+	for key := range m {
+		keys = append(keys, key)
+	}
+	randomNum := rand.Intn(len(m))
+	return keys[randomNum]
+}
+
+func getRandomQuestion() {
+
 }
