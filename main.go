@@ -2,15 +2,16 @@ package main
 
 import (
 	"math/rand"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	r.GET("/questions")    // all questions
-	r.GET("/question")     // random question
-	r.GET("/question/:id") // specific Q
+	r.GET("/questions")                   // all questions
+	r.GET("/question", getRandomQuestion) // random question
+	r.GET("/question/:id")                // specific Q
 	r.Run("0.0.0.0:8080")
 }
 
@@ -37,6 +38,8 @@ func randomizer(m map[string]question) string {
 	return keys[randomNum]
 }
 
-func getRandomQuestion() {
-
+func getRandomQuestion(c *gin.Context) {
+	key := randomizer(questionsMap)
+	question := questionsMap[key]
+	c.JSON(http.StatusOK, question)
 }
